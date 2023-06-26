@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,8 +69,35 @@
         </ul>
       </nav><!-- .navbar -->
       <div class="justify-content-right">
-        <a href="login" class="btn btn-primary ml-5">Masuk</a>
-        <a href="register" class="btn btn-primary ml-5">Daftar</a>
+        <?php
+          if ($_SESSION != null ){
+            if ($_SESSION['role'] == '1' OR $_SESSION['role'] == '2') {
+              echo '
+              <a href="logout" class="btn btn-primary ml-5">Keluar</a>
+              <a href="admin" class="btn btn-primary ml-5">Panel</a>
+            ';
+            }
+          elseif ($_SESSION['role'] == '3')
+          {
+            echo '<a href="logout" class="btn btn-primary ml-5">Keluar</a>
+            <select class="form-select form-select d-flex d-line" name="" id="">
+            <option selected>'.$_SESSION['nama_depan'].'</option>
+            <option value="">New Delhi</option>
+            <option value="">Istanbul</option>
+            <option value="">Jakarta</option>
+          </select>
+            
+            ' 
+            ;
+             
+          }
+          }else{
+            echo '
+            <a href="login" class="btn btn-primary ml-5">Masuk</a>
+            <a href="register" class="btn btn-primary ml-5">Daftar</a>
+          ';
+          }
+        ?>
       </div>
     </div>
   </header><!-- End Header -->

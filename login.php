@@ -2,7 +2,7 @@
 session_start();
 require_once('conn.php');
 if ($_SESSION != null ){
-  if ($_SESSION['id_user'] == 1) {
+  if ($_SESSION['role'] == 1 OR $_SESSION['role'] == 2 ) {
     echo "
       <script>
           window.location.href = 'admin/index';
@@ -25,29 +25,30 @@ if (isset($_POST['submit'])) {
 $email = $_POST['email'];
 // $password = md5($_POST['password']);
 $password = $_POST['password']; 
-$sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+$sql = "SELECT * FROM pendaftaran WHERE email='$email' AND password='$password'";
 $result = mysqli_query($conn, $sql);
   if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
-    $_SESSION['nama'] = $row['nama'];
+  
+    if($row['status'] == '0')
+    {
+      echo "<script>alert('Akun anda belum di validasi mohon bersabar!');
+      window.location.href = 'login';
+      </script>";
+      die;
+    }
+ 
+    $_SESSION['nama_depan'] = $row['nama_depan'];
     $_SESSION['email'] = $row['email'];
-    $_SESSION['id_user'] = $row['id_user'];
-    // if ($_SESSION['id'] == 1) {
-    //     echo "
-    //     <script>
-    //         window.location.href = 'admin/';
-    //     </script>
-    //     ";
-    // }else{
-    //     echo "
-    //     <script>
-    //         window.location.href = 'index';
-    //     </script>
-    //     ";
-    // }
+    $_SESSION['id_pendaftaran'] = $row['id_pendaftaran'];
+    $_SESSION['role'] = $row['role'];
+  
 
   } else {
-    echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
+    echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!');
+    window.location.href = 'login';
+    </script>";
+    die;
   }
   echo "
   <script>
@@ -120,8 +121,8 @@ $result = mysqli_query($conn, $sql);
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Silahkan masuk dengan Akun Anda</h5>
+                    <!-- <p class="text-center small">Enter your username & password to login</p> -->
                   </div>
 
                   <form class="row g-3"  method="POST" action="">
@@ -129,7 +130,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" placeholder="Please enter your email" id="youremail" required>
+                        <input type="text" name="email" class="form-control" placeholder="Masukan email Anda" id="youremail" required>
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -137,7 +138,6 @@ $result = mysqli_query($conn, $sql);
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">
@@ -148,7 +148,7 @@ $result = mysqli_query($conn, $sql);
                       <button class="btn btn-primary w-100" name="submit" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Belum punya akun ? <a href="pages-register.html">Buat akun baru</a></p>
+                      <p class="small mb-0">Belum punya akun ? <a href="register">Buat akun baru</a></p>
                     </div>
                   </form>
 

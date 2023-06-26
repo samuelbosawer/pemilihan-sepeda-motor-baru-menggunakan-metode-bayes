@@ -2,8 +2,6 @@
 
 $namaProgram = 'Sistem Pendukung Keputusan Pemilihan Sepeda Motor Baru Menggunakan Metode Bayes';
 
-
-
 // DATABASE
 $servername = "localhost";
 $username = "root";
@@ -54,6 +52,7 @@ function register($data, $table, $file){
   $foto = $namaBaruFoto;
   $password = $data['password'];
   $konformasiPassword = $data['konformasiPassword'];    
+  $role = $data['role'];    
   $status = '0';    
 
   // Buat Id 
@@ -67,7 +66,7 @@ function register($data, $table, $file){
       $idTerbaru = $id['id_pendaftaran'];
       $id =   (int) substr($idTerbaru, 2, 5);
       $id++;
-      $id_pendaftaran = 'p-'.$id;
+    $id_pendaftaran = 'p-'.$id;
     }
   }
 
@@ -93,7 +92,7 @@ function register($data, $table, $file){
     // query insert data 
     if(move_uploaded_file($tmp_file_foto, $pathFoto) && move_uploaded_file($tmp_file_ktp, $pathKtp)){
 
-      $query = "INSERT INTO $table (`id_pendaftaran`, `nama_depan`, `nama_belakang`, `email`, `ktp`, `alamat_distrik`, `alamat_kelurahan`, `alamat_jalan`,`password`,`foto`,`status`)  VALUES ('$id_pendaftaran', '$nama_depan', '$nama_belakang', '$email', '$ktp', '$distrik', '$kelurahan','$jalan','$password','$foto','$status')";
+      $query = "INSERT INTO $table (`id_pendaftaran`, `nama_depan`, `nama_belakang`, `email`, `ktp`, `alamat_distrik`, `alamat_kelurahan`, `alamat_jalan`,`password`,`foto`,`status`,`role`)  VALUES ('$id_pendaftaran', '$nama_depan', '$nama_belakang', '$email', '$ktp', '$distrik', '$kelurahan','$jalan','$password','$foto','$status','$role')";
       mysqli_query($conn,$query);
       return mysqli_affected_rows($conn);
     }

@@ -120,6 +120,15 @@
                       <input type="file" name="foto" class="form-control" id="yourphoto" required>
                     </div>
 
+                    <div class="col-12">
+                        <label for="role" class="form-label">Daftar Sebagai</label>
+                        <select class="form-select form-select-lg" name="role" id="role">
+                          <option selected> -- Pilih --</option>
+                          <option value="2">Customer</option>
+                          <option value="1">Admin Dealer</option>
+                        </select>
+                    </div>
+
                     <div class="col-12 mb-0">
                       <label for="" class="form-label text-muted">Alamat</label>
                     </div>
