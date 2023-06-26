@@ -1,4 +1,26 @@
 <?php
+  require_once('conn.php');
+  if(isset($_POST["submit"])){
+    // Cek apakah data berhasil ditambahkan 
+     if(register($_POST,'pendaftaran',$_FILES)>0){
+      echo "
+        <script>  
+          alert('Pendaftaran berhasil, harap menunggu konformasi !!'); 
+          window.location.href = 'login';
+        </script>
+    
+      ";
+     }else{
+      echo "
+      <script>  
+          alert('Pendaftaran gagal, harap diisi dengan benar !!'); 
+          </script> 
+        ";
+     }
+
+
+  }
+ 
   
 
 ?>
@@ -10,7 +32,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title> Register - Sistem Pendukung Keputusan Pemilihan Sepeda Motor Baru Menggunakan Metode Bayes</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -34,6 +56,9 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+   <!-- SWEETALERT -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Mar 09 2023 with Bootstrap v5.2.3
@@ -51,13 +76,13 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-8 col-md-12 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <!-- <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">NiceAdmin</span>
-                </a>
+                </a> -->
               </div><!-- End Logo -->
 
               <div class="card mb-3">
@@ -65,50 +90,80 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Buat Akun</h5>
+                    <p class="text-center small">Silahkan masukan data anda dengan benar</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                  <form class="row g-3" method="POST" action="" enctype="multipart/form-data" >
+                    <div class="col-6">
+                      <label for="nama" class="form-label">Nama Depan</label>
+                      <input type="text" name="nama_depan" class="form-control" id="Nama depan anda" required>
+                    </div>
+
+                    <div class="col-6">
+                      <label for="nama" class="form-label">Nama Belakang</label>
+                      <input type="text" name="nama_belakang" class="form-control" id="Nama depan anda" required>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
+                      <label for="yourEmail" class="form-label">Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
+                      <label for="yourktp" class="form-label">KTP</label>
+                      <input type="file" name="ktp" class="form-control" id="yourktp" required>
                     </div>
 
                     <div class="col-12">
+                      <label for="yourphoto" class="form-label">Foto Diri</label>
+                      <input type="file" name="foto" class="form-control" id="yourphoto" required>
+                    </div>
+
+                    <div class="col-12 mb-0">
+                      <label for="" class="form-label text-muted">Alamat</label>
+                    </div>
+
+                    <div class="col-12 mt-0">
+                      <label for="distrik" class="form-label">Distrik </label>
+                      <input type="text" name="distrik" class="form-control" id="distrik" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="kelurahan" class="form-label">Kelurahan </label>
+                      <input type="text" name="kelurahan" class="form-control" id="kelurahan" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="jalan" class="form-label">Jalan </label>
+                      <textarea name="jalan" class="form-control" id="jalan" cols="30" rows="7"></textarea>
+                    </div>
+
+                    
+                    <div class="col-12 mb-0">
+                      <label for="" class="form-label text-muted">Password</label>
+                    </div>
+
+                    <div class="col-12 mt-0">
+                      <label for="password" class="form-label">Password </label>
+                      <input type="password" name="password" class="form-control" id="password" required>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="konformasiPassword" class="form-label">Konfirmasi Password </label>
+                      <input type="password" name="konformasiPassword" class="form-control" id="konformasiPassword" required>
+                    </div>
+
+
+                    <!-- <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
+                    </div> -->
+
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
+                      <button class="btn btn-primary w-100"  name="submit" type="submit">Buat Akun</button>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                      <p class="small mb-0">Sudah Punya Akun ? <a href="login.php">Masuk</a></p>
                     </div>
                   </form>
 
@@ -120,7 +175,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
               </div>
 
             </div>
