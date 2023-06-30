@@ -10,27 +10,27 @@
       </li>
      
       <li class="nav-item">
-        <a class="nav-link " href="bengkel/index">
+        <a class="nav-link " href="kriteria-index">
         <i class="bi bi-menu-button-wide"></i>
           <span>Kriteria</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="pengguna/index">
+        <a class="nav-link " href="sub-kriteria-index">
         <i class="bi bi-menu-button-wide"></i>
           <span>Sub Kriteria</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="pengguna/index">
-        <i class="bi bi-menu-button-wide"></i>
-          <span>Tingkat Kepercayaan</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link " href="pendaftar-index">
         <i class="bi bi bi-journal-text"></i>
           <span>Pendaftar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="pemesanan-index">
+        <i class="bi bi-file-earmark-text"></i>
+          <span>Pemesanan</span>
         </a>
       </li>
       <li class="nav-item">

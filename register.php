@@ -1,4 +1,23 @@
 <?php
+session_start();
+require_once('conn.php');
+if ($_SESSION != null ){
+  if ($_SESSION['role'] == 1 OR $_SESSION['role'] == 2 ) {
+    echo "
+      <script>
+          window.location.href = 'admin/index';
+       </script>
+    ";
+  }else{
+    echo "
+    <script>
+        window.location.href = 'index';
+     </script>
+  ";
+  }
+};
+
+
   require_once('conn.php');
   if(isset($_POST["submit"])){
     // Cek apakah data berhasil ditambahkan 
@@ -17,8 +36,6 @@
           </script> 
         ";
      }
-
-
   }
  
   

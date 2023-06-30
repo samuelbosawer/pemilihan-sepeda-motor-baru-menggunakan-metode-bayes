@@ -2,22 +2,27 @@
 session_start();
 require_once('conn.php');
 if ($_SESSION != null ){
-  if ($_SESSION['role'] == 1 OR $_SESSION['role'] == 2 ) {
+  if ($_SESSION['role'] == 1 ) {
     echo "
       <script>
           window.location.href = 'admin/index';
        </script>
     ";
-  }else{
+  }elseif ($_SESSION['role'] == 2 ) {
+    echo "
+      <script>
+          window.location.href = 'admin-dealer/index';
+       </script>
+    ";
+  }
+  else{
     echo "
     <script>
         window.location.href = 'index';
      </script>
   ";
   }
-}else{
-  
-}
+};
 
 
 

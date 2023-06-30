@@ -3,19 +3,23 @@
    require_once('includes/session-conn.php');
    include('includes/header.php');
    include('includes/sidebar.php'); 
-  
-   $datas =mysqli_query($conn,"SELECT * FROM pendaftaran ORDER BY id_pendaftaran DESC");
 
+//    SELECT *
+// FROM tabel1
+// JOIN tabel2 ON tabel1.id = tabel2.tabel1_id
+// JOIN tabel3 ON tabel2.id = tabel3.tabel2_id;
+
+   $datas = mysqli_query($conn,"SELECT * FROM pemesanan JOIN motor ON pemesanan.id_motor = motor.id_motor JOIN pendaftaran ON pendaftaran.id_pendaftaran = pemesanan.id_pendaftaran");
 ?>
 
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Pendaftar</h1>
+      <h1>Pemesana</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="pendaftar-index">Pendaftar</a></li>
+          <li class="breadcrumb-item"><a href="pemesanan-index">Pemesanan</a></li>
           <li class="breadcrumb-item active">Data</li>
         </ol>
       </nav>
@@ -31,11 +35,11 @@
               <thead>
                 <tr class="bg-dark text-white ">
                   <th scope="col">#</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Foto</th> 
+                  <th scope="col">Nama Pemesan</th>
+                  <th scope="col">Nama Motor</th>
+                  <th scope="col">Stok</th> 
                   <th scope="col">Status</th> 
-                  <th scope="col">Aksi</th>
+                  <!-- <th scope="col">Aksi</th> -->
                 </tr>
               </thead>
               <tbody class="">
@@ -43,26 +47,22 @@
                 <tr>
                   <th scope="row"><?= ++$i?></th>
                   <td><?= $data['nama_depan'] .' '. $data['nama_belakang']?></td>
-                  <td><?= $data['email']?></td>
+                  <td><?= $data['nama_motor']?></td>
+                  <td><?= $data['stok_pemesanan']?></td>
                   <td>
-                    <?php if($data['foto'] == null): ?>
-                      <img src="../assets/img/person.png" width="50" alt="foto" srcset="">
-                    <?php else : ?>
-                      <img src="../assets/img/data/<?= $data['foto']?>" width="50" alt="foto" srcset="">
+                    <?php if($data['status_pemesanan'] == 0): ?>
+                        <a href="#" class="btn btn-warning">Belum Bayar</a>
+                     <?php elseif($data['status_pemesanan'] == 1): ?>
+                        <a href="#" class="btn btn-warning">Sudah Chekout</a>
+                      <?php elseif($data['status_pemesanan'] == 2): ?>
+                        <a href="#" class="btn btn-warning">Sudah Bayar</a>
                     <?php endif; ?>
                   </td>
-                  <td>
-                    <?php if($data['status'] == 0): ?>
-                        <a href="#" class="btn btn-warning">Akun belum di aktifkan</a>
-                     <?php elseif($data['status'] == 1): ?>
-                        <a href="#" class="btn btn-success">Akun sudah di aktifkan</a>
-                    <?php endif; ?>
-                  </td>
-                  <td>
+                  <!-- <td> -->
                     <!-- <a href="sub-kriteria-edit?id=<?= $data['id_pendaftaran']?>" class="btn btn-success m-2"><i class="bi bi-pencil-fill"></i></a> -->
-                    <a href="pendaftar-detail?id=<?= $data['id_pendaftaran']?>" class="btn btn-primary m-2"><i class="bi bi-eye-fill"></i></a>
+                    <!-- <a href="pendaftar-detail?id=<?= $data['id_pendaftaran']?>" class="btn btn-primary m-2"><i class="bi bi-eye-fill"></i></a> -->
                     <!-- <a href="sub-kriteria-?id=<?= $data['id_pendaftaran']?>" class="btn btn-danger m-2"><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a> -->
-                  </td>
+                  <!-- </td> -->
                 </tr>
                 <?php endforeach ?>
               </tbody>

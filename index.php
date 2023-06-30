@@ -77,6 +77,12 @@ session_start();
               <a href="admin" class="btn btn-primary ml-5">Panel</a>
             ';
             }
+            if ($_SESSION['role'] == '2') {
+              echo '
+              <a href="logout" class="btn btn-primary ml-5">Keluar</a>
+              <a href="admin-dealer" class="btn btn-primary ml-5">Panel</a>
+            ';
+            }
           elseif ($_SESSION['role'] == '3')
           {
             echo '<a href="logout" class="btn btn-primary ml-5">Keluar</a>

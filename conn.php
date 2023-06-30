@@ -106,9 +106,6 @@ function register($data, $table, $file){
           </script> 
   ";
   die;
-
   }
-
- 
-    
   };
+
