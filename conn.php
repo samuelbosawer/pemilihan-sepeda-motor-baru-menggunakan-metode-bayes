@@ -57,19 +57,15 @@ function register($data, $table, $file){
 
   // Buat Id 
   $idCek =mysqli_query($conn,"SELECT id_pendaftaran FROM pendaftaran ORDER BY id_pendaftaran DESC");
-  foreach($idCek as $id)
+  $id = mysqli_fetch_all($idCek, MYSQLI_ASSOC);
+  $idLama = $id[0]["id_pendaftaran"];
+  $id_pendaftaran="p-1";
+  if($idLama != null)
   {
-    if($id['id_pendaftaran'] == null)
-    {
-      $id_pendaftaran = 'p-1';
-    }else{
-      $idTerbaru = $id['id_pendaftaran'];
-      $id =   (int) substr($idTerbaru, 2, 5);
-      $id++;
-    $id_pendaftaran = 'p-'.$id;
-    }
+   $idNew =   (int) substr($idLama, 2, 5);
+   ++$idNew;
+   $id_pendaftaran = 'p-'.$idNew;
   }
-
   $cekEmail =mysqli_query($conn,"SELECT email FROM pendaftaran WHERE email = '$email'");
   foreach($cekEmail as $ce)
   {

@@ -2,13 +2,20 @@
 session_start();
 require_once('conn.php');
 if ($_SESSION != null ){
-  if ($_SESSION['role'] == 1 OR $_SESSION['role'] == 2 ) {
+  if ($_SESSION['role'] == 1 ) {
     echo "
       <script>
           window.location.href = 'admin/index';
        </script>
     ";
-  }else{
+  }
+  elseif ($_SESSION['role'] == 2 ) {
+    echo "
+      <script>
+          window.location.href = 'admin-dealer/index';
+       </script>
+    ";}
+  else{
     echo "
     <script>
         window.location.href = 'index';
@@ -17,14 +24,13 @@ if ($_SESSION != null ){
   }
 };
 
-
   require_once('conn.php');
   if(isset($_POST["submit"])){
     // Cek apakah data berhasil ditambahkan 
      if(register($_POST,'pendaftaran',$_FILES)>0){
       echo "
         <script>  
-          alert('Pendaftaran berhasil, harap menunggu konformasi !!'); 
+          alert('Pendaftaran berhasil, harap menunggu konfirmasi !!'); 
           window.location.href = 'login';
         </script>
     
@@ -141,8 +147,8 @@ if ($_SESSION != null ){
                         <label for="role" class="form-label">Daftar Sebagai</label>
                         <select class="form-select form-select-lg" name="role" id="role">
                           <option selected> -- Pilih --</option>
-                          <option value="2">Customer</option>
-                          <option value="1">Admin Dealer</option>
+                          <option value="3">Customer</option>
+                          <option value="2">Admin Dealer</option>
                         </select>
                     </div>
 

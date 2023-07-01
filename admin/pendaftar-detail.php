@@ -93,7 +93,7 @@
                              <?php elseif($data[0]['status'] == 1): ?>
                             <form action="" method="post">
                                 <input type="hidden" name="status" value="0">
-                                <button type="submit" name="submit" class="btn btn-danger">Matikan aktifkan Akun</button>
+                                <button type="submit" name="submit" class="btn btn-danger">Non aktifkan Akun</button>
                             </form>
                     <?php endif; ?>
                     </td>

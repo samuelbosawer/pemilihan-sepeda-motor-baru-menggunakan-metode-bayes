@@ -13,6 +13,11 @@
    $pemesanan     = mysqli_query($conn,$pemesanan);
    $kriteria      = mysqli_query($conn,$kriteria);
    $pendaftaran   = mysqli_query($conn,$pendaftaran);
+
+   $cek_akun  = "SELECT * FROM pendaftaran WHERE status = '0' AND email != 'admin@gmail.com' ";
+   $cek_akun   = mysqli_query($conn,$cek_akun);
+
+
  
   ?>
 
@@ -35,7 +40,26 @@
 
     <section class="section dashboard">
       <div class="row">
+        <!-- <?php var_dump($_SESSION)?> -->
+        <?php if($cek_akun->num_rows >0) : ?>
+          <div class="col-lg-12">
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong> Ada <?=$cek_akun->num_rows?> </strong> yang belum diaktikan !!
+                <a class="fw-bolder" href="pendaftar-index">Aktifkan sekarang !!</a>
+              </div>
+          </div>
+        
+        <script>
+          var alertList = document.querySelectorAll('.alert');
+          alertList.forEach(function (alert) {
+            new bootstrap.Alert(alert)
+          })
+        </script>
 
+        <?php endif ?>
+     
+        
         <!-- Left side columns -->
         <div class="col-lg-12">
           <div class="row">

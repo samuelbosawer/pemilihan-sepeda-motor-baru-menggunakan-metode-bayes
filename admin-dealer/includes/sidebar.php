@@ -8,23 +8,10 @@
           <span>Dashboard</span>
         </a>
       </li>
-     
       <li class="nav-item">
-        <a class="nav-link " href="kriteria-index">
+        <a class="nav-link " href="motor-index">
         <i class="bi bi-menu-button-wide"></i>
-          <span>Kriteria</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="sub-kriteria-index">
-        <i class="bi bi-menu-button-wide"></i>
-          <span>Sub Kriteria</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="pendaftar-index">
-        <i class="bi bi bi-journal-text"></i>
-          <span>Pendaftar</span>
+          <span>Motor</span>
         </a>
       </li>
       <li class="nav-item">
