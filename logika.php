@@ -1,3 +1,0 @@
-<?php
-
-// Metode Bayas

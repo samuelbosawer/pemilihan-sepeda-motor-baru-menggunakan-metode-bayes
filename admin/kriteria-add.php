@@ -64,6 +64,21 @@
                         class="form-control" name="kode_kriteria" id="kode" placeholder="masukan kode kriteria" required>
                     </div>
                 </div>
+
+                <?php
+                 $idCek =mysqli_query($conn,"SELECT id_kriteria FROM kriteria ORDER BY RIGHT(id_kriteria, 2)   DESC LIMIT 1 ");
+                 $id = mysqli_fetch_all($idCek, MYSQLI_ASSOC);
+                 $idLama = $id[0]["id_kriteria"];
+                 $id_kriteria="k-1";
+                 if($idLama != null)
+                 {
+                  $idNew =   (int) substr($idLama, 2, 5);
+                  ++$idNew;
+                  $id_kriteria = 'k-'.$idNew;
+                 }
+                 echo ' <input type="hidden" value="'. $idLama .'" name="id_kriteria">';
+                
+                 ?>
                 <div class="col-12">
                     <button class="btn btn-success" type="submit" name="submit"> Simpan </button>
                 </div>

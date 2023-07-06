@@ -49,7 +49,7 @@
           <h5>Tambah Data Motor</h5>
         </div>
         <form action="" method="POST"  enctype="multipart/form-data">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="col-12">
                   <div class="mb-3">
                     <label for="" class="form-label">Jenis Motor</label>
@@ -83,69 +83,66 @@
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
-                    <label for="bb_pengguna" class="form-label">Batas Bawah Berat badan pengguna</label>
-                    <input type="number"
-                        class="form-control" name="bb_pengguna" id="bb_pengguna" placeholder="masukan Berat badan pengguna" required>
+                      <div class="input-group">
+                        <span class="input-group-text">Berat badan pengguna </span>
+                        <select class="form-select " name="bb_pengguna_batas" id="bb_pengguna_batas" required  >
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                          </select>
+                        <input type="text"   name="bb_pengguna" onkeydown="return isIntegerKey(event)" placeholder="" required  class="form-control">
+                      </div>
                     </div>
                 </div>
 
 
-                <div class="col-12">
-                    <div class="mb-3">
-                    <label for="bb_pengguna" class="form-label">Batas Atas Berat badan pengguna</label>
-                    <input type=""
-                        class="form-control" name="bb_pengguna_batas" id="bb_pengguna" placeholder="masukan Berat badan pengguna" required>
-                    </div>
-                </div>
-
 
                 <div class="col-12">
                     <div class="mb-3">
-                    <label for="bb_pengguna" class="form-label">CC Motor</label>
-                    <input type="number"
-                        class="form-control" name="bb_pengguna" id="bb_pengguna" placeholder="masukan Berat badan pengguna" required>
+                    <label for="cc_motor" class="form-label">CC Motor</label>
+                    <input type="text"
+                        class="form-control" name="cc_motor" id="cc_motor" placeholder="" onkeydown="return isIntegerKey(event)" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                       <label for="k_maksimal" class="form-label">Kecepatan Maksimal</label>
-                      <input type="number" class="form-control" name="k_maksimal" id="k_maksimal" placeholder="masukan kecepatan" required>
+                      <input type="text" onkeydown="return isIntegerKey(event)" class="form-control" name="k_maksimal" id="k_maksimal"  required>
                     </div>
                 </div>
                           <div class="col-12">
                     <div class="mb-3">
                       <label for="k_tengki" class="form-label">Kapasitas Tengki</label>
-                      <input type="number" class="form-control" name="k_tengki" id="k_tengki" placeholder="masukan tengki" required>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="mb-3">
-                      <label for="tinggi_badan" class="form-label">Tinggi badan</label>
-                      <input type="number" class="form-control" name="tinggi_badan" id="tinggi_badan" placeholder="masukan tinggi badan" required>
+                      <input type="number" class="form-control" onkeydown="return isIntegerKey(event)" name="k_tengki" id="k_tengki"  required>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="mb-3">
-                      <label for="tinggi_badan_batas" class="form-label">Batas Atas Tinggi badan</label>
-                      <input type="" class="form-control" name="tinggi_badan_batas" id="tinggi_badan_batas" placeholder="masukan tinggi badan" required>
+                      <div class="input-group">
+                        <span class="input-group-text">Tinggi badan </span>
+                        <select class="form-select " name="tinggi_badan_batas" id="tinggi_badan_batas" required  >
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                          </select>
+                        <input type="text"   name="tinggi_badan" onkeydown="return isIntegerKey(event)" placeholder="" required  class="form-control">
+                         
+                      </div>
                     </div>
                 </div>
+
 
 
                 <div class="col-12">
                     <div class="mb-3">
-                      <label for="jarak_awal" class="form-label">Jarak Awal</label>
-                      <input type="number" class="form-control" name="jarak_awal" id="jarak_awal" placeholder="masukan jarak" required>
+                      <div class="input-group">
+                        <span class="input-group-text">Jarak</span>
+                        <input type="text"   name="jarak_awal" onkeydown="return isIntegerKey(event)" placeholder="" required  class="form-control">
+                        <span class="input-group-text">-</span>
+                        <input type="text"   name="jarak_akhir" onkeydown="return isIntegerKey(event)" placeholder="" required  class="form-control">
+                      </div>
                     </div>
                 </div>
 
-                <div class="col-12">
-                    <div class="mb-3">
-                      <label for="jarak_akhir" class="form-label">Jarak Akhir</label>
-                      <input type="number" class="form-control" name="jarak_akhir" id="jarak_akhir" placeholder="masukan jarak" required>
-                    </div>
-                </div>
 
                 <div class="col-12">
                     <div class="mb-3">
@@ -161,17 +158,17 @@
                 <div class="col-12">
                     <div class="mb-3">
                       <label for="harga" class="form-label">Harga</label>
-                      <input type="number" class="form-control" name="harga" id="harga" placeholder="masukan kecepatan" required>
+                      <input type="text"  onkeydown="return isIntegerKey(event)" class="form-control" name="harga" id="harga"  required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                       <label for="stok" class="form-label">stok</label>
-                      <input type="number" class="form-control" name="stok" id="stok" placeholder="masukan stok" required>
+                      <input type="text" onkeydown="return isIntegerKey(event)" class="form-control" name="stok" id="stok" required>
                     </div>
                 </div>
                 <?php
-                 $idCek =mysqli_query($conn,"SELECT id_motor FROM motor ORDER BY id_motor DESC ");
+                 $idCek =mysqli_query($conn,"SELECT id_motor FROM motor ORDER BY RIGHT(id_motor,2) DESC ");
                  $id = mysqli_fetch_all($idCek, MYSQLI_ASSOC);
                  $idLama = $id[0]["id_motor"];
                  $id_motor="m-1";
@@ -192,10 +189,9 @@
       </div>
     </div>
     </section>
-
   </main><!-- End #main -->
 
- 
+
 
   <?php
    include('includes/footer.php');

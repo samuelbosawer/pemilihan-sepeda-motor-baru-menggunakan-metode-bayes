@@ -58,7 +58,21 @@ function add_kriteria($data, $table){
   // Data POST
   $nama_kriteria = $data['nama_kriteria'];
   $kode_kriteria = $data['kode_kriteria'];
+  $id_kriteria = $data['id_kriteria'];
 
+  $kCek =mysqli_query($conn,"SELECT kode_kriteria FROM kriteria WHERE kode_kriteria = '$kode_kriteria' ");
+  
+  if($kCek->num_rows == 1)
+  {
+      echo "
+      <script>
+          alert('kode kriteria sudah ada')
+          window.location.href = 'kriteria-add';
+      </script>
+    ";
+    die;
+  }
+  
   if(strlen($kode_kriteria)<2 )
   {
     echo "
@@ -70,28 +84,9 @@ function add_kriteria($data, $table){
     die;
   }
 
-  // Buat Id 
-  $idCek =mysqli_query($conn,"SELECT id_kriteria FROM kriteria ORDER BY id_kriteria DESC");
-  $id_kriteria ='';
-  foreach($idCek as $id)
-  {
-    
-
-    if($id['id_kriteria'] == null)
-    {
-      $id_kriteria = 'k-1';
-    }else{
-      $idTerbaru = $id['id_kriteria'];
-      $idNew =   (int) substr($idTerbaru, 2, 5);
-      ++$idNew;
-   
-      $id_kriteria = 'k-'.$idNew;
-      
-    }
     $query = "INSERT INTO $table (`id_kriteria`, `nama_kriteria`, `kode_kriteria`)  VALUES ('$id_kriteria', '$nama_kriteria', '$kode_kriteria')";
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);
-  }
 }
 
 function edit_kriteria($data, $table, $id)
@@ -123,7 +118,6 @@ function add_sub_kriteria($data, $table){
 
   // Data POST
   $id_kriteria = $data['id_kriteria'];
-  $nama_sub_kriteria = $data['nama_sub_kriteria'];
   $range_atas = $data['range_atas'];
   $range_bawah = $data['range_bawah_select'];
   $tingkat_kepercayaan = $data['tingkat_kepercayaan'];
@@ -138,7 +132,7 @@ function add_sub_kriteria($data, $table){
 
   
  
-   $query = "INSERT INTO $table (`id_sub`, `nama_sub_kriteria`, `range_atas`,`range_bawah`,`id_kriteria`,`satuan`,`tingkat_kepercayaan`)  VALUES ('$id_sub', '$nama_sub_kriteria', '$range_atas','$range_bawah','$id_kriteria','$satuan','$tingkat_kepercayaan')";
+   $query = "INSERT INTO $table (`id_sub`, `range_atas`,`range_bawah`,`id_kriteria`,`satuan`,`tingkat_kepercayaan`)  VALUES ('$id_sub','$range_atas','$range_bawah','$id_kriteria','$satuan','$tingkat_kepercayaan')";
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);
 }
@@ -150,12 +144,14 @@ function edit_sub_kriteria($data, $table, $id)
 
     // Data POST
     $id_kriteria = $data['id_kriteria'];
-    $nama_sub_kriteria = $data['nama_sub_kriteria'];
     $range_atas = $data['range_atas'];
     $range_bawah = $data['range_bawah_select'];
     $tingkat_kepercayaan = $data['tingkat_kepercayaan'];
-
-    $query = "UPDATE `$table` SET `id_kriteria` = '$id_kriteria', `nama_sub_kriteria` = '$nama_sub_kriteria',  `range_atas` = '$range_atas', `range_bawah` = '$range_bawah', `tingkat_kepercayaan` = $tingkat_kepercayaan WHERE `id_sub` = '$id'";
+    if($range_bawah === '-')
+  {
+    $range_bawah = $data['range_bawah'];
+  }
+    $query = "UPDATE `$table` SET `id_kriteria` = '$id_kriteria', `range_atas` = '$range_atas', `range_bawah` = '$range_bawah', `tingkat_kepercayaan` = $tingkat_kepercayaan WHERE `id_sub` = '$id'";
 
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);

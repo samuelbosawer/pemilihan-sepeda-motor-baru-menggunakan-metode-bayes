@@ -38,7 +38,6 @@
                 <tr class="bg-dark text-white ">
                   <th scope="col">#</th>
                   <th scope="col">Kriteria</th>
-                  <th scope="col">Nama Sub Kriteria</th>
                   <th scope="col">Range Atas</th>
                   <th scope="col">Range Bawah</th>
                   <th scope="col">Tingkat Kepercayaan</th>
@@ -50,13 +49,12 @@
                 <tr>
                   <th scope="row"><?= ++$i?></th>
                   <td><?= $data['nama_kriteria'] .' '. $data['kode_kriteria']?></td>
-                  <td><?= $data['nama_sub_kriteria']?></td>
                   <td><?= $data['range_atas']?></td>
                   <td><?= $data['range_bawah']?></td>
-                  <td><?= $data['tingkat_kepercayaan']?> %</td>
+                  <td><?= $data['tingkat_kepercayaan']?> </td>
                   <td>
-                    <a href="sub-kriteria-edit?id=<?= $data['id_sub']?>" class="btn btn-success m-2"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="sub-kriteria-delete?id=<?= $data['id_sub']?>" class="btn btn-danger m-2"><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>
+                    <a href="sub-kriteria-edit?id=<?= $data['id_sub']?>" class="btn btn-success m-1 btn-sm"><i class="bi bi-pencil-fill"></i></a>
+                    <a href="sub-kriteria-delete?id=<?= $data['id_sub']?>" class="btn btn-danger m-1 btn-sm"><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>
                   </td>
                 </tr>
                 <?php endforeach ?>

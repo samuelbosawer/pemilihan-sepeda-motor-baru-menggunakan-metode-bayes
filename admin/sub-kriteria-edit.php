@@ -64,16 +64,11 @@
                     endforeach; ?>
                     </select>
                   </div>
-                    <div class="mb-3">
-                    <label for="nama_sub_kriteria" class="form-label">Nama Sub Kriteria</label>
-                    <input type="text"
-                        class="form-control" value="<?= $sub_kriteria[0]['nama_sub_kriteria']?>" name="nama_sub_kriteria" id="nama_sub_kriteria" placeholder="masukan nama sub kriteria" required>
-                    </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                     <label for="range_atas" class="form-label">Range Atas</label>
-                    <input type="number"
+                    <input type=""
                         class="form-control"  value="<?= $sub_kriteria[0]['range_atas']?>" name="range_atas" id="range_atas" placeholder="masukan range atas" required>
                     </div>
                 </div>
@@ -86,6 +81,10 @@
                       <option value=">">></option>
                       <option value="<"><</option>
                       <option value="-">-</option>
+                      <option value="rata">rata</option>
+                      <option value="tanjakan, turunan">tanjakan, turunan</option>
+                      <option value="batu-batuan">batu-batuan</option>
+                      <option value=""> Tidak ada </option>
                     </select>
                   </div>
                 </div>
@@ -101,12 +100,10 @@
                       <option value="kmph">kmph</option>
                       <option value="CC">CC</option>
                       <option value="liter">liter</option>
-                      <option value="juta">juta</option>
-                      <option value="juta">juta</option>
+                      <option value="Rp">Rp</option>
                       <option value="km/jam">km/jam</option>
-                      <option value="rata">rata</option>
-                      <option value="tanjakan, turunan">tanjakan, turunan</option>
-                      <option value="batu-batuan">batu-batuan</option>
+                      <option value="cm">cm</option>
+                      <option value="">Tidak ada</option>
                     </select>
                   </div>
                 </div>
@@ -114,7 +111,7 @@
                 <div class="col-12">
                   <label class="mb-1" for="tingkat_kepercayaan" class="form-label">Tingkat Kepercayaan</label>
                   <div class="input-group mb-3">
-                    <input type="number" class="form-control" value="<?= $sub_kriteria[0]['tingkat_kepercayaan']?>" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
+                    <input type="" class="form-control" value="<?= $sub_kriteria[0]['tingkat_kepercayaan']?>" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
                     <span class="input-group-text">%</span>
                   </div>
                 </div>

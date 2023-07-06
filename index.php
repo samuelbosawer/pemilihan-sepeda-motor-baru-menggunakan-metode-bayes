@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once('conn.php');
+
+$datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY RAND()");
 
 ?>
 <!DOCTYPE html>
@@ -64,14 +67,13 @@ session_start();
           <li><a href="#" class="active">Beranda</a></li>
           <li><a href="#tentang" class="active">Tentang Kami</a></li>
           <li><a href="#produk" class="active">Produk</a></li>
-          <li><a href="pencarian.php" class="active">Pencarian</a></li>
-     
+          <li><a href="pencarian.php" class="active">Pencarian Bayes</a></li>
         </ul>
       </nav><!-- .navbar -->
       <div class="justify-content-right">
         <?php
           if ($_SESSION != null ){
-            if ($_SESSION['role'] == '1' OR $_SESSION['role'] == '2') {
+            if ($_SESSION['role'] == '1') {
               echo '
               <a href="logout" class="btn btn-primary ml-5">Keluar</a>
               <a href="admin" class="btn btn-primary ml-5">Panel</a>
@@ -86,12 +88,9 @@ session_start();
           elseif ($_SESSION['role'] == '3')
           {
             echo '<a href="logout" class="btn btn-primary ml-5">Keluar</a>
-            <select class="form-select form-select d-flex d-line" name="" id="">
-            <option selected>'.$_SESSION['nama_depan'].'</option>
-            <option value="">New Delhi</option>
-            <option value="">Istanbul</option>
-            <option value="">Jakarta</option>
-          </select>
+            <a href="#" class="btn btn-primary ml-5">'.$_SESSION['nama_depan'].'</a>
+            <a href="keranjang" class="btn btn-primary ml-5"><i class="bi bi-bag-fill"></i></a>
+          
             
             ' 
             ;
@@ -116,31 +115,11 @@ session_start();
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h2 data-aos="fade-up">Sistem Pendukung Keputusan </h2>
           <h3 data-aos="fade-up" data-aos-delay="100"> Pemilihan Sepeda Motor Baru Menggunakan Metode Bayes</h3>
-
-          <!-- <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
-            <input type="text" class="form-control" placeholder="Cari motor">
-            <button type="submit" class="btn btn-primary">Cari</button>
-          </form>
-          <div class="form-check" data-aos="fade-up" data-aos-delay="100">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-             Cari Menggunakan Metode Bayes
-            </label>
-          </div>
-          <div class="form-check" data-aos="fade-up" data-aos-delay="100">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
-              Cari Biasa
-            </label>
-          </div> -->
           <a href="pencarian.php" data-aos="fade-up" data-aos-delay="200" class="btn btn-primary p-3 btn-lg fw-bolder">Mulai Pencarian <i class="bi bi-search"></i> </a>
-         
         </div>
-
         <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
           <img src="assets/img/hero-img.svg" class="img-fluid mb-3 mb-lg-0" alt="">
         </div>
-
       </div>
     </div>
   </section><!-- End Hero Section -->
@@ -187,60 +166,53 @@ session_start();
       <h1 class="text-white ">PRODUK</h1>
     </div>
 
-<div class="row gy-4 text-white">
-
-  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-    <div class="card">
-      <div class="card-img">
-        <img src="assets/img/storage-service.jpg" alt="" class="img-fluid">
-      </div>
-      <div class="p-3"> 
-        <h3 class="mb-0"><a href="service-details" class="stretched-link text-dark ">Honda</a></h3>
-        <p class="text-dark">Cumque eos in qui numquam. Aut aspernatur perferendis sed atque quia voluptas quisquam repellendus temporibus itaqueofficiis odit</p>
-        <div class="">
-          <a href="" class="btn btn-success">  <i class="bi bi-bag-fill"></i> Pesan </a>
+    <div class="row gy-4 text-white">
+    <?php foreach($datas as $data):?>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card">
+          <div class="card-img">
+            <?php if($data['gambar'] == null) : ?>
+                <img width="300" height="200" src="assets/img/motor.png" alt="" class="">
+              <?php else :?>
+                <img width="300" height="200" src="assets/img/data/<?=$data['gambar']?>" alt="" class="">
+            <?php endif?>
+          </div>
+          <div class="p-3"> 
+            <h4 class="mb-0"><?=$data['alternatif']?></h4>
+            <h5 class="text-dark">  <?=$data['jenis_motor']?> Rp. <?= number_format($data['harga'],0,',','.') ?>  </h5>
+            <p class="text-dark"> 
+              BB:<?=$data['bb_pengguna']?>  <?=$data['bb_pengguna_batas']?>, 
+              CC:<?=$data['cc_motor']?> ,
+              KM:<?=$data['k_maksimal']?>, 
+              KT:<?=$data['k_tengki']?>, 
+              TB:<?=$data['tinggi_badan']?>, 
+              J:<?=$data['jarak_awal']?> m - <?=$data['jarak_akhir']?> m, 
+                <?=$data['kondisi_jalan']?> 
+          </p>
+            <div class="">
+            <?php
+          if ($_SESSION != null ){
+            if ($_SESSION['role'] == '3') {
+                echo '
+                <form action="keranjang" class="d-inline-flex" method="POST"> 
+                  <input type="hidden" value="'. $data["id_motor"].'" name="id">
+                  <button type="submit" class="btn btn-success" name="submit">  <i class="bi bi-bag-fill"></i> Pesan </button>
+                </form>
+                ';
+              }else{
+                echo ' <button data-bs-toggle="modal" data-bs-target="#role" class="btn btn-success">  <i class="bi bi-bag-fill"></i> Pesan </button>';
+              }
+            
+            }else{
+              echo' <button data-bs-toggle="modal" data-bs-target="#role" class="btn btn-success">  <i class="bi bi-bag-fill"></i> Pesan </button>';
+            }?>
+             
+              <a href="detail?id=<?php echo($data["id_motor"]); ?>" class="btn btn-primary">  <i class="bi bi-eye-fill"></i> Detail </a>
+            </div>
+          </div>
         </div>
-      </div>
-   
-    </div>
-  </div><!-- End Card Item -->
-
-  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-    <div class="card">
-      <div class="card-img">
-        <img src="assets/img/storage-service.jpg" alt="" class="img-fluid">
-      </div>
-      <div class="p-3"> 
-        <h3 class="mb-0"><a href="service-details" class="stretched-link text-dark ">Honda</a></h3>
-        <p class="text-dark">Cumque eos in qui numquam. Aut aspernatur perferendis sed atque quia voluptas quisquam repellendus temporibus itaqueofficiis odit</p>
-        <div class="">
-          <a href="" class="btn btn-success">  <i class="bi bi-bag-fill"></i> Pesan </a>
-        </div>
-      </div>
-   
-    </div>
-  </div><!-- End Card Item -->
-
-
-  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-    <div class="card">
-      <div class="card-img">
-        <img src="assets/img/storage-service.jpg" alt="" class="img-fluid">
-      </div>
-      <div class="p-3"> 
-        <h3 class="mb-0"><a href="service-details" class="stretched-link text-dark ">Honda</a></h3>
-        <p class="text-dark">Cumque eos in qui numquam. Aut aspernatur perferendis sed atque quia voluptas quisquam repellendus temporibus itaqueofficiis odit</p>
-        <div class="">
-          <a href="" class="btn btn-success">  <i class="bi bi-bag-fill"></i> Pesan </a>
-        </div>
-      </div>
-   
-    </div>
-  </div><!-- End Card Item -->
-
-
-  
-
+      </div><!-- End Card Item -->
+    <?php endforeach?>
 
 </div>
 
@@ -248,6 +220,36 @@ session_start();
 
   </main><!-- End #main -->
 
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="role" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body h1 text-center">
+        <?php if ($_SESSION == null ): ?>
+         Anda harus login terlebih dahulu !!
+      
+        <?php else :?>
+          Tidak bisa melakukan pemesanan anda buka customer !!
+        <?php endif?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+  const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+
+</script>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 

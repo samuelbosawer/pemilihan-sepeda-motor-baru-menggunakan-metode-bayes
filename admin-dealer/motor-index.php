@@ -9,7 +9,7 @@
     // JOIN tabel2 ON tabel1.id = tabel2.tabel1_id
     // JOIN tabel3 ON tabel2.id = tabel3.tabel2_id;
 
-   $datas = mysqli_query($conn,"SELECT * FROM motor");
+   $datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY right(id_motor,2) DESC");
 ?>
 
 
@@ -61,18 +61,14 @@
                         <img src="../assets/img/data/<?=$data['gambar']?>" width="100" alt="" srcset="">
                     <?php endif; ?>
                   </td>
-
                   <td><?= $data['jenis_motor']?></td>
                   <td><?= $data['class']?></td>
-
                   <td><?= $data['alternatif']?></td>
-
                   <td><?= $data['stok'] ?></td>
-
                   <td>
-                    <a href="pendaftar-detail?id=<?= $data['id_motor'] ?>" class="btn btn-primary m-2"><i class="bi bi-eye-fill"></i></a>
-                    <a href="pendaftar-edit?id=?id=<?= $data['id_motor']?>" class="btn btn-success m-2"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="pendaftar-delete?id=?id=<?= $data['id_motor']?>" class="btn btn-danger m-2"><i class="bi bi-trash-fill"></i></a>
+                    <a href="motor-detail?id=<?= $data['id_motor'] ?>" class="btn btn-primary "><i class="bi bi-eye-fill"></i></a>
+                    <a href="motor-edit?id=<?= $data['id_motor']?>" class="btn btn-success "><i class="bi bi-pencil-fill"></i></a>
+                    <a href="motor-delete?id=<?= $data['id_motor']?>" class="btn btn-danger "><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>
                   </td>
                 </tr>
                 <?php endforeach ?>

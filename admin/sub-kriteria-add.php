@@ -60,17 +60,12 @@
                       <?php endforeach; ?>
                     </select>
                   </div>
-                    <div class="mb-3">
-                    <label for="nama_sub_kriteria" class="form-label">Nama Sub Kriteria</label>
-                    <input type="text"
-                        class="form-control" name="nama_sub_kriteria" id="nama_sub_kriteria" placeholder="masukan nama sub kriteria" required>
-                    </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                     <label for="range_atas" class="form-label">Range Atas</label>
-                    <input type="number"
-                        class="form-control" name="range_atas" id="range_atas" placeholder="masukan range atas" required>
+                    <input type=""
+                        class="form-control" onkeydown="return isIntegerKey(event)" name="range_atas" id="range_atas" placeholder="masukan range atas" required>
                     </div>
                 </div>
 
@@ -81,6 +76,10 @@
                       <option value=">">></option>
                       <option value="<"><</option>
                       <option value="-">-</option>
+                      <option value="rata">rata</option>
+                      <option value="tanjakan, turunan">tanjakan, turunan</option>
+                      <option value="batu-batuan">batu-batuan</option>
+                      <option value=""> Tidak ada </option>
                     </select>
                   </div>
                 </div>
@@ -95,12 +94,11 @@
                       <option value="kmph">kmph</option>
                       <option value="CC">CC</option>
                       <option value="liter">liter</option>
-                      <option value="juta">juta</option>
-                      <option value="juta">juta</option>
+                      <option value="Rp">Rp</option>
                       <option value="km/jam">km/jam</option>
-                      <option value="rata">rata</option>
-                      <option value="tanjakan, turunan">tanjakan, turunan</option>
-                      <option value="batu-batuan">batu-batuan</option>
+                      <option value="cm">cm</option>
+                      <option value="">Tidak ada</option>
+                     
                     </select>
                   </div>
                 </div>
@@ -108,16 +106,16 @@
                 <div class="col-12">
                   <label class="mb-1" for="tingkat_kepercayaan" class="form-label">Tingkat Kepercayaan</label>
                   <div class="input-group mb-3">
-                    <input type="number" class="form-control" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
-                    <span class="input-group-text">%</span>
+                    <input type="" class="form-control"  onkeydown="return isIntegerKey(event)" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
+                    <!-- <span class="input-group-text">%</span> -->
                   </div>
                 </div>
                 <?php 
                 
-                $idCek =mysqli_query($conn,"SELECT id_sub FROM sub_kriteria ORDER BY id_sub DESC LIMIT 1");
+                $idCek =mysqli_query($conn,"SELECT id_sub FROM sub_kriteria ORDER BY  RIGHT(id_sub, 2)  DESC LIMIT 1");
                 $id_sub = 'sk-1';
                 foreach($idCek as $id)
-                {
+                {                 
                   
               
                   if($id['id_sub'] == null)
@@ -131,7 +129,6 @@
                     $id_sub = 'sk-'.$idNew;
                   }
                 
-               
                 echo ' <input type="hidden" value="'. $id_sub .'" name="id_sub">';
               
                 }
@@ -162,10 +159,14 @@
                     <div class="mb-3">
                     <label for="range_bawah" class="form-label">Masukan Nilai Range Bawah</label>
                     <input type="number"
-                        class="form-control" name="range_bawah" id="range_bawah" placeholder="masukan nilai range bawah" required>
+                        class="form-control" onkeydown="return isIntegerKey(event)" name="range_bawah" id="range_bawah" placeholder="masukan nilai range bawah" required>
                     </div>
                 </div>
             `;
+      // elsei(selectedValue === '-')
+      // {
+
+      // }
       }else{
         document.getElementById("nilai").innerHTML = ` `;
       }

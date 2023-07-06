@@ -34,6 +34,22 @@
       $('#myTable').DataTable();
   } );
   </script>
+
+<script>
+      function isIntegerKey(event) {
+        // Mendapatkan kode tombol dari event
+        var keyCode = event.which ? event.which : event.keyCode;
+        
+        // Tombol kunci yang diizinkan untuk angka (0-9) dan tombol khusus untuk navigasi dan menghapus (misalnya Backspace, Arrow keys)
+        var allowedKeys = [8, 37, 39, 46]; // Backspace, Left Arrow, Right Arrow, Delete
+        
+        // Memeriksa apakah kode tombol tidak termasuk dalam daftar tombol yang diizinkan
+        if ((keyCode < 48 || keyCode > 57) && !allowedKeys.includes(keyCode)) {
+          // Mengembalikan false untuk mencegah karakter yang tidak valid dimasukkan
+          return false;
+        }
+      }
+</script>
 </body>
 
 </html>
