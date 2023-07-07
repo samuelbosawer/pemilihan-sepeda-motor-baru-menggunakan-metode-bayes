@@ -23,6 +23,9 @@ if ($_SESSION != null ){
      </script>
   ";
   };
+
+
+
 $id_akun = $_SESSION['id_pendaftaran'];
 if(isset($_POST['hapus']))
 {

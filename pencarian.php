@@ -3,6 +3,13 @@ session_start();
 require_once('conn.php');
 
 // $datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY id_motor DESC");
+$kecepatan = mysqli_query($conn, "SELECT DISTINCT k_maksimal
+FROM motor;");
+$tengki = mysqli_query($conn, "SELECT DISTINCT k_tengki
+FROM motor;");
+
+$cc = mysqli_query($conn, "SELECT DISTINCT cc_motor
+FROM motor;");
 
 if(isset($_POST["submit"])){
   require_once('bayes.php');
@@ -214,14 +221,12 @@ if(isset($_POST["submit"])){
        </div>
        <div class="col-12 ">
           <div class="mb-3">
-                <label for="cc_motor" class="form-label ">Cc Motor</label>
+                <label for="cc_motor" class="form-label ">CC Motor</label>
                 <div class="input-group">
                      <select class="form-select" name="cc_motor" id="cc_motor">
-                        <option value="110">110 CC</option>
-                        <option value="125">125 CC</option>
-                        <option value="150">150 CC</option>
-                        <option value="177">177 CC</option>
-                        <option value="249">249 CC</option>
+                          <?php  foreach($cc as $c):?>
+                            <option value="<?= $c['cc_motor']?>"><?= $c['cc_motor']?> CC</option>
+                          <?php endforeach ?>
                       </select>
                 </div>
           </div>
@@ -229,15 +234,29 @@ if(isset($_POST["submit"])){
        <div class="col-12 ">
           <div class="mb-3">
                 <label for="k_maksimal" class="form-label ">Kecepatan Maksimal</label>
-                <input type="" class="form-control" onkeydown="return isIntegerKey(event)" name="k_maksimal" id="k_maksimal" data-set="">
+                <div class="input-group">
+                     <select class="form-select" name="k_maksimal" id="k_maksimal">
+                          <?php  foreach($kecepatan as $k):?>
+                            <option value="<?= $k['k_maksimal']?>"><?= $k['k_maksimal']?> kmph</option>
+                          <?php endforeach ?>
+                      </select>
+                </div>
           </div>
        </div>
+
        <div class="col-12 ">
           <div class="mb-3">
                 <label for="k_tengki" class="form-label ">Kapasitas Tengki</label>
-                <input type="" class="form-control" onkeydown="return isIntegerKey(event)" name="k_tengki" id="k_tengki" data-set="">
+                <div class="input-group">
+                     <select class="form-select" name="k_tengki" id="k_tengki">
+                          <?php  foreach($tengki as $t):?>
+                            <option value="<?= $t['k_tengki']?>"><?= $t['k_tengki']?> Liter</option>
+                          <?php endforeach ?>
+                      </select>
+                </div>
           </div>
        </div>
+                            
           <div class="mb-3">
                 <label for="t_badan" class="form-label ">Harga</label>
                 <div class="input-group">
