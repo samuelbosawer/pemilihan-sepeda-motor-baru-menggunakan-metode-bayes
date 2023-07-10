@@ -55,10 +55,10 @@
                       <?php foreach($datas as $data): 
                         if($data['id_kriteria'] == $sub_kriteria[0]['id_kriteria']):
                         ?>
-                        <option selected value="<?= $data["id_kriteria"]?>"><?= $data['nama_kriteria'].' ('.$data['kode_kriteria'] .')'?></option>
+                        <option selected value="<?= $data["id_kriteria"]?>"><?= $data['nama_kriteria'].')'?></option>
                         <?php else :?>
                         
-                        <option value="<?= $data["id_kriteria"]?>"><?= $data['nama_kriteria'].' ('.$data['kode_kriteria'] .')'?></option>
+                        <option value="<?= $data["id_kriteria"]?>"><?= $data['nama_kriteria'].')'?></option>
                       <?php
                     endif;
                     endforeach; ?>

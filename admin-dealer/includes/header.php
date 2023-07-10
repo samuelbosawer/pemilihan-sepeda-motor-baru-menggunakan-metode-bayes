@@ -49,7 +49,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index" class="logo d-flex align-items-center">
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <span class="d-none d-lg-block">Admin Dealer</span>
+        <span class="d-none d-lg-block">Admin Dealer <?=  $_SESSION['dealer'] ?></span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -68,7 +68,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="logout">
+              <a class="dropdown-item d-flex align-items-center" onclick= "return confirm ('Anda yakin ingin keluar ?')" href="logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Keluar</span>
               </a>

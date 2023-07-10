@@ -53,10 +53,15 @@ function register($data, $table, $file){
   $password = $data['password'];
   $konformasiPassword = $data['konformasiPassword'];    
   $role = $data['role'];    
-  $status = '0';    
+  $status = '0'; 
+  $dealer = '';
+  if(isset($data['dealer']) != null)
+  {
+    $dealer = $data['dealer'];
+  }   
 
   // Buat Id 
-  $idCek =mysqli_query($conn,"SELECT id_pendaftaran FROM pendaftaran ORDER BY id_pendaftaran DESC");
+  $idCek =mysqli_query($conn,"SELECT id_pendaftaran FROM pendaftaran ORDER BY  RIGHT(id_pendaftaran, 2) DESC");
   $id = mysqli_fetch_all($idCek, MYSQLI_ASSOC);
   $idLama = $id[0]["id_pendaftaran"];
   $id_pendaftaran="p-1";
@@ -74,7 +79,7 @@ function register($data, $table, $file){
         echo"
         <script>  
           alert('Email sudah terdaftar !! '); 
-          window.location.href = 'register';
+           window.location.href = 'register';
           </script> 
 
         ";
@@ -88,7 +93,7 @@ function register($data, $table, $file){
     // query insert data 
     if(move_uploaded_file($tmp_file_foto, $pathFoto) && move_uploaded_file($tmp_file_ktp, $pathKtp)){
 
-      $query = "INSERT INTO $table (`id_pendaftaran`, `nama_depan`, `nama_belakang`, `email`, `ktp`, `alamat_distrik`, `alamat_kelurahan`, `alamat_jalan`,`password`,`foto`,`status`,`role`)  VALUES ('$id_pendaftaran', '$nama_depan', '$nama_belakang', '$email', '$ktp', '$distrik', '$kelurahan','$jalan','$password','$foto','$status','$role')";
+      $query = "INSERT INTO $table (`id_pendaftaran`, `nama_depan`, `nama_belakang`, `email`, `ktp`, `alamat_distrik`, `alamat_kelurahan`, `alamat_jalan`,`password`,`foto`,`status`,`role`,`dealer`)  VALUES ('$id_pendaftaran', '$nama_depan', '$nama_belakang', '$email', '$ktp', '$distrik', '$kelurahan','$jalan','$password','$foto','$status','$role','$dealer')";
       mysqli_query($conn,$query);
       return mysqli_affected_rows($conn);
     }

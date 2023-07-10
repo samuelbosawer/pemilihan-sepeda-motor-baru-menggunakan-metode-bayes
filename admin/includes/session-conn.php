@@ -28,7 +28,7 @@
   }
 
 
-
+$halaman = basename($_SERVER['PHP_SELF']);
 $namaProgram = 'Sistem Pendukung Keputusan Pemilihan Sepeda Motor Baru Menggunakan Metode Bayes';
 
 // DATABASE
@@ -57,34 +57,10 @@ function add_kriteria($data, $table){
 
   // Data POST
   $nama_kriteria = $data['nama_kriteria'];
-  $kode_kriteria = $data['kode_kriteria'];
   $id_kriteria = $data['id_kriteria'];
 
-  $kCek =mysqli_query($conn,"SELECT kode_kriteria FROM kriteria WHERE kode_kriteria = '$kode_kriteria' ");
   
-  if($kCek->num_rows == 1)
-  {
-      echo "
-      <script>
-          alert('kode kriteria sudah ada')
-          window.location.href = 'kriteria-add';
-      </script>
-    ";
-    die;
-  }
-  
-  if(strlen($kode_kriteria)<2 )
-  {
-    echo "
-      <script>
-          alert('kode kriteria menimal 2 karakter')
-          window.location.href = 'kriteria-add';
-       </script>
-    ";
-    die;
-  }
-
-    $query = "INSERT INTO $table (`id_kriteria`, `nama_kriteria`, `kode_kriteria`)  VALUES ('$id_kriteria', '$nama_kriteria', '$kode_kriteria')";
+    $query = "INSERT INTO $table (`id_kriteria`, `nama_kriteria`)  VALUES ('$id_kriteria', '$nama_kriteria')";
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);
 }
@@ -94,18 +70,8 @@ function edit_kriteria($data, $table, $id)
     global $conn;
     // Data POST
     $nama_kriteria = $data['nama_kriteria'];
-    $kode_kriteria = $data['kode_kriteria'];
-    if(strlen($kode_kriteria)<2 )
-      {
-        echo "
-          <script>
-              alert('kode kriteria menimal 2 karakter')
-              window.location.href = 'kriteria-edit?id=".$id.";
-          </script>
-        ";
-        die;
-      }
-    $query = "UPDATE `$table` SET `nama_kriteria` = '$nama_kriteria', `kode_kriteria` = '$kode_kriteria' WHERE `id_kriteria` = '$id';";
+    
+    $query = "UPDATE `$table` SET `nama_kriteria` = '$nama_kriteria' WHERE `id_kriteria` = '$id';";
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);
 }

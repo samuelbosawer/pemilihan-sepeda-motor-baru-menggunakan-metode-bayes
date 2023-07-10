@@ -9,7 +9,7 @@
     // JOIN tabel2 ON tabel1.id = tabel2.tabel1_id
     // JOIN tabel3 ON tabel2.id = tabel3.tabel2_id;
 
-   $datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY right(id_motor,2) DESC");
+   $datas = mysqli_query($conn,"SELECT * FROM motor WHERE jenis_motor = '$dealer'  ORDER BY right(id_motor,2) DESC");
 ?>
 
 
@@ -36,7 +36,8 @@
             <table id="myTable" class="table  table-hover table-bordered">
               <thead>
                 <tr class="bg-dark text-white ">
-                  <th scope="col">#</th>
+                  <th scope="col">#</th> 
+                  <th scope="col">Kriteria Motor</th> 
 
                   <th scope="col">Gambar</th>
 
@@ -45,8 +46,6 @@
 
                   <th scope="col">Alternatif</th> 
 
-                  <th scope="col">Stok</th> 
-                    
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -54,6 +53,9 @@
                 <?php $i = 0; foreach($datas as $data) : ?>
                 <tr>
                   <th scope="row"><?= ++$i?></th>
+                  <td class="text-center">
+                    <a href="motor-kriteria?id=<?= $data['id_motor'] ?>" class="btn btn-sm btn-success"> Lihat Kriteria <i class="bi bi-eye-fill"></i></a>
+                  </td>
                   <td> 
                     <?php if($data['gambar'] == null) : ?>
                       <img src="../assets/img/motor.png" width="100" alt="" srcset="">
@@ -64,11 +66,9 @@
                   <td><?= $data['jenis_motor']?></td>
                   <td><?= $data['class']?></td>
                   <td><?= $data['alternatif']?></td>
-                  <td><?= $data['stok'] ?></td>
                   <td>
-                    <a href="motor-detail?id=<?= $data['id_motor'] ?>" class="btn btn-primary "><i class="bi bi-eye-fill"></i></a>
-                    <a href="motor-edit?id=<?= $data['id_motor']?>" class="btn btn-success "><i class="bi bi-pencil-fill"></i></a>
-                    <a href="motor-delete?id=<?= $data['id_motor']?>" class="btn btn-danger "><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>
+                    <a href="motor-edit?id=<?= $data['id_motor']?>" class="btn btn-sm btn-success "><i class="bi bi-pencil-fill"></i></a>
+                    <a href="motor-delete?id=<?= $data['id_motor']?>" class="btn btn-sm btn-danger "><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>
                   </td>
                 </tr>
                 <?php endforeach ?>

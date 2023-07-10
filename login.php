@@ -47,6 +47,7 @@ $result = mysqli_query($conn, $sql);
     $_SESSION['email'] = $row['email'];
     $_SESSION['id_pendaftaran'] = $row['id_pendaftaran'];
     $_SESSION['role'] = $row['role'];
+    $_SESSION['dealer'] = $row['dealer'];
   
 
   } else {

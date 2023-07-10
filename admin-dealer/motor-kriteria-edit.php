@@ -3,42 +3,44 @@
    require_once('includes/session-conn.php');
    include('includes/header.php');
    include('includes/sidebar.php'); 
-   if(isset($_POST["submit"])){
+   $id = $_GET['id'];
+   $idMotor = $id;
+  
+  $kriteria =mysqli_query($conn,"SELECT * FROM kriteria ORDER BY id_kriteria DESC");
+  $datas =mysqli_query($conn,"SELECT * FROM `motor`,`kriteria_motor` WHERE motor.id_motor = kriteria_motor.id_motor AND kriteria_motor.id_kriteria_motor = '$id'  ");
+  $motor = mysqli_fetch_all($datas, MYSQLI_ASSOC);
+
+
+  if(isset($_POST["submit"])){
     // Cek apakah data berhasil ditambahkan 
-     if(add_sub_kriteria($_POST,'sub_kriteria')>0){
+     if(ubah_kriteria_motor($_POST,'kriteria_motor', $id)>0){
       echo "
         <script>  
-          alert('Data sub kriteria berhasil ditambahkan !!'); 
-          document.location.href = 'sub-kriteria-index';
+          alert('Data kriteria berhasil diubah !!'); 
+          document.location.href = 'motor-kriteria?id=".$motor[0]['id_motor']."';
         </script>
     
       ";
      }else{
       echo "
       <script>  
-          alert('Data gagal ditambahkan, harap diisi dengan benar !!'); 
+          alert('Data gagal diubah, harap diisi dengan benar !!'); 
           </script> 
         ";
      }
   }
-  $datas =mysqli_query($conn,"SELECT * FROM kriteria ORDER BY id_kriteria DESC");
-
   
 ?>
-
-
-
-
 
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Sub Kriteria</h1>
+      <h1> Kriteria Motor <?=$motor[0]['alternatif']?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="sub-kriteria-index">Sub Kriteria</a></li>
-          <li class="breadcrumb-item active">Tambah</li>
+          <li class="breadcrumb-item"><a href="motor-kriteria?id=<?=$motor[0]['id_motor']?>"> Kriteria Motor </a></li>
+          <li class="breadcrumb-item active">Ubah</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -55,8 +57,12 @@
                   <div class="mb-3">
                     <label for="id_kriteria" class="form-label">Kriteria</label>
                     <select class="form-select" name="id_kriteria" id="id_kriteria" require="">
-                      <?php foreach($datas as $data): ?>
-                        <option value="<?= $data["id_kriteria"]?>"><?= $data['nama_kriteria']?></option>
+                      <?php foreach($kriteria as $k): ?>
+                        <?php if($k['id_kriteria'] == $motor[0]['id_kriteria'] ) :?>
+                           <option selected value="<?= $k["id_kriteria"]?>"><?= $k['nama_kriteria']?></option>
+                        <?php else :?>
+                           <option value="<?= $k["id_kriteria"]?>"><?= $k['nama_kriteria']?></option>
+                        <?php endif?>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -65,7 +71,7 @@
                     <div class="mb-3">
                     <label for="range_atas" class="form-label">Range Atas</label>
                     <input type=""
-                        class="form-control" onkeydown="return isIntegerKey(event)" name="range_atas" id="range_atas" placeholder="masukan range atas" required>
+                        class="form-control" onkeydown="return isIntegerKey(event)" value="<?= $motor[0]['range_atas_m'] ?>" name="range_atas" id="range_atas" placeholder="masukan range atas" required>
                     </div>
                 </div>
 
@@ -73,6 +79,7 @@
                   <div class="mb-3">
                     <label for="range_bawah_select" class="form-label">Range Bawah</label>
                     <select class="form-select " name="range_bawah_select" id="range_bawah_select" required >
+                      <option value="<?= $motor[0]['range_bawah_m'] ?>"><?= $motor[0]['range_bawah_m'] ?></option>
                       <option value=">">></option>
                       <option value="<"><</option>
                       <option value="-">-</option>
@@ -86,53 +93,7 @@
                 <div id='nilai'></div>
 
 
-                <div class="col-12">
-                  <div class="mb-3">
-                    <label for="satuan" class="form-label">Satuan</label>
-                    <select class="form-select " name="satuan" id="satuan" >
-                      <option value="kg">kg</option>
-                      <option value="kmph">kmph</option>
-                      <option value="CC">CC</option>
-                      <option value="liter">liter</option>
-                      <option value="Rp">Rp</option>
-                      <option value="km/jam">km/jam</option>
-                      <option value="cm">cm</option>
-                      <option value="">Tidak ada</option>
-                     
-                    </select>
-                  </div>
                 </div>
-
-                <div class="col-12">
-                  <label class="mb-1" for="tingkat_kepercayaan" class="form-label">Tingkat Kepercayaan</label>
-                  <div class="input-group mb-3">
-                    <input type="" class="form-control"  onkeydown="return isIntegerKey(event)" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
-                    <!-- <span class="input-group-text">%</span> -->
-                  </div>
-                </div>
-                <?php 
-                
-                $idCek =mysqli_query($conn,"SELECT id_sub FROM sub_kriteria ORDER BY  RIGHT(id_sub, 2)  DESC LIMIT 1");
-                $id_sub = 'sk-1';
-                foreach($idCek as $id)
-                {                 
-                  
-              
-                  if($id['id_sub'] == null)
-                  {
-                    $id_sub = 'sk-1';
-                  }else{
-                    $idTerbaru = $id['id_sub'];
-                    $idNew =   (int) substr($idTerbaru, 3, 5);
-                    ++$idNew;
-                 
-                    $id_sub = 'sk-'.$idNew;
-                  }
-                
-                echo ' <input type="hidden" value="'. $id_sub .'" name="id_sub">';
-              
-                }
-                ?>
                 <div class="col-12">
                     <button class="btn btn-success" type="submit" name="submit"> Simpan </button>
                 </div>

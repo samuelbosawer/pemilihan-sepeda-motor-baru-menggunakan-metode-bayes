@@ -15,7 +15,6 @@
       echo "
         <script>  
           alert('Status berhasil diubah !!'); 
-          document.location.href = 'pendaftar-index';
         </script>
     
       ";
@@ -33,10 +32,9 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Detail Pendaftar</h1>
+      <h1>Detail </h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="pendaftar-index">Pendaftar</a></li>
           <li class="breadcrumb-item active">Detail</li>
         </ol>
       </nav>
@@ -83,6 +81,16 @@
                         <?php endif; ?>
                     </td>
                 </tr>
+                <?php if($data[0]['dealer'] != null): ?>
+
+                  <tr class="">
+                    <th scope="col">Dealer</th>
+                    <td class="">
+                     <?= $data[0]['dealer']?>
+                    </td>
+                  </tr>
+                <?php endif; ?>
+
                 <tr class="">
                   <td colspan="2" class="text-center mt-5">
                     <?php  if($data[0]['status'] == 0): ?>

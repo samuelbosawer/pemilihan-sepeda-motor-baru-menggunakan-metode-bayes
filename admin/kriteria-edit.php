@@ -64,13 +64,7 @@
                             class="form-control" name="nama_kriteria" id="nama" value=<?=$data['nama_kriteria']?> placeholder="masukan nama kriteria" required>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                        <label for="kode" class="form-label">Kode Kriteria</label>
-                        <input type="text"
-                            class="form-control" name="kode_kriteria" id="kode" value=<?=$data['kode_kriteria']?> placeholder="masukan kode kriteria" required>
-                        </div>
-                    </div>
+                  
                     <div class="col-12">
                         <button class="btn btn-success" type="submit" name="submit"> Simpan </button>
                     </div>

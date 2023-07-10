@@ -60,8 +60,7 @@ if ($_SESSION != null ){
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -70,14 +69,14 @@ if ($_SESSION != null ){
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
 
    <!-- SWEETALERT -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -145,12 +144,14 @@ if ($_SESSION != null ){
 
                     <div class="col-12">
                         <label for="role" class="form-label">Daftar Sebagai</label>
-                        <select class="form-select form-select-lg" name="role" id="role">
+                        <select class="form-select form-select" name="role" id="roles">
                           <option selected> -- Pilih --</option>
                           <option value="3">Customer</option>
-                          <option value="2">Admin Dealer</option>
+                          <option value="2">Dealer</option>
                         </select>
                     </div>
+
+                    <div id="dealer"></div>
 
                     <div class="col-12 mb-0">
                       <label for="" class="form-label text-muted">Alamat</label>
@@ -222,18 +223,46 @@ if ($_SESSION != null ){
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <!-- <script src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <!-- <script src="assets/vendor/chart.js/chart.umd.js"></script>
   <script src="assets/vendor/echarts/echarts.min.js"></script>
   <script src="assets/vendor/quill/quill.min.js"></script>
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <!-- <script src="assets/js/main.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <script>
+  // Mengambil elemen select
+  var selectElement = document.getElementById("roles");
 
+  // Menambahkan event listener untuk perubahan
+  selectElement.addEventListener("change", function() {
+    // Mengambil nilai terpilih
+    var selectedValue = selectElement.value;
+      if(selectedValue === '2')
+      {
+        document.getElementById("dealer").innerHTML = `
+                    <div class="col-12">
+                        <label for="" class="form-label">Daftar Sebagai</label>
+                        <select class="form-select form-select" name="dealer" id="">
+                          <option value="Honda">Honda</option>
+                          <option value="Yahama">Yahama</option>
+                          <option value="Kawasaki">Kawasaki</option>
+                        </select>
+                    </div>
+
+            `;
+      }else{
+        document.getElementById("dealer").innerHTML = ` `;
+      }
+   
+  });
+  </script>
 </body>
 
 </html>

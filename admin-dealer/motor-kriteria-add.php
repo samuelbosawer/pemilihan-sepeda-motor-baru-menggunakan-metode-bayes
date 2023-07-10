@@ -3,13 +3,15 @@
    require_once('includes/session-conn.php');
    include('includes/header.php');
    include('includes/sidebar.php'); 
+   $id = $_GET['id'];
+   $idMotor = $id;
    if(isset($_POST["submit"])){
     // Cek apakah data berhasil ditambahkan 
-     if(add_sub_kriteria($_POST,'sub_kriteria')>0){
+     if(add_kriteria_motor($_POST,'kriteria_motor')>0){
       echo "
         <script>  
-          alert('Data sub kriteria berhasil ditambahkan !!'); 
-          document.location.href = 'sub-kriteria-index';
+          alert('Data kriteria berhasil ditambahkan !!'); 
+          document.location.href = 'motor-kriteria?id=".$id."';
         </script>
     
       ";
@@ -22,7 +24,8 @@
      }
   }
   $datas =mysqli_query($conn,"SELECT * FROM kriteria ORDER BY id_kriteria DESC");
-
+  $m =mysqli_query($conn,"SELECT * FROM `motor` WHERE `id_motor` = '$id' ");
+  $motor = mysqli_fetch_all($m, MYSQLI_ASSOC);
   
 ?>
 
@@ -34,10 +37,10 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Sub Kriteria</h1>
+      <h1> Kriteria Motor <?=$motor[0]['alternatif']?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="sub-kriteria-index">Sub Kriteria</a></li>
+          <li class="breadcrumb-item"><a href="motor-kriteria?id=<?=$id?>"> Kriteria Motor </a></li>
           <li class="breadcrumb-item active">Tambah</li>
         </ol>
       </nav>
@@ -86,53 +89,31 @@
                 <div id='nilai'></div>
 
 
-                <div class="col-12">
-                  <div class="mb-3">
-                    <label for="satuan" class="form-label">Satuan</label>
-                    <select class="form-select " name="satuan" id="satuan" >
-                      <option value="kg">kg</option>
-                      <option value="kmph">kmph</option>
-                      <option value="CC">CC</option>
-                      <option value="liter">liter</option>
-                      <option value="Rp">Rp</option>
-                      <option value="km/jam">km/jam</option>
-                      <option value="cm">cm</option>
-                      <option value="">Tidak ada</option>
-                     
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <label class="mb-1" for="tingkat_kepercayaan" class="form-label">Tingkat Kepercayaan</label>
-                  <div class="input-group mb-3">
-                    <input type="" class="form-control"  onkeydown="return isIntegerKey(event)" placeholder="masukan tingkat kepercayaan" name="tingkat_kepercayaan" id="tingkat_kepercayaan" required>
-                    <!-- <span class="input-group-text">%</span> -->
-                  </div>
                 </div>
                 <?php 
                 
-                $idCek =mysqli_query($conn,"SELECT id_sub FROM sub_kriteria ORDER BY  RIGHT(id_sub, 2)  DESC LIMIT 1");
-                $id_sub = 'sk-1';
+                $idCek =mysqli_query($conn,"SELECT id_kriteria_motor FROM kriteria_motor ORDER BY  RIGHT(id_kriteria_motor, 2)  DESC LIMIT 1");
+                $id_kriteria_motor = 'km-1';
                 foreach($idCek as $id)
                 {                 
                   
               
-                  if($id['id_sub'] == null)
+                  if($id['id_kriteria_motor'] == null)
                   {
-                    $id_sub = 'sk-1';
+                    $id_kriteria_motor = 'km-1';
                   }else{
-                    $idTerbaru = $id['id_sub'];
+                    $idTerbaru = $id['id_kriteria_motor'];
                     $idNew =   (int) substr($idTerbaru, 3, 5);
                     ++$idNew;
                  
-                    $id_sub = 'sk-'.$idNew;
+                    $id_kriteria_motor = 'km-'.$idNew;
                   }
                 
-                echo ' <input type="hidden" value="'. $id_sub .'" name="id_sub">';
               
                 }
                 ?>
+                <input type="hidden" value="<?=$id_kriteria_motor?>" name="id_kriteria_motor">
+                <input type="hidden" value="<?=$idMotor?>" name="id_motor">
                 <div class="col-12">
                     <button class="btn btn-success" type="submit" name="submit"> Simpan </button>
                 </div>

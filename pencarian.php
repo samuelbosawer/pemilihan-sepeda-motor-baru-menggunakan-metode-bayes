@@ -1,4 +1,10 @@
 <?php
+ echo "
+ <script>
+ alert('Halaman Belum Tersedia');
+     window.location.href = 'index';
+  </script>
+";
 session_start();
 require_once('conn.php');
 

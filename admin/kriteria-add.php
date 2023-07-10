@@ -57,13 +57,7 @@
                         class="form-control" name="nama_kriteria" id="nama" placeholder="masukan nama kriteria" required>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="mb-3">
-                    <label for="kode" class="form-label">Kode Kriteria</label>
-                    <input type="text"
-                        class="form-control" name="kode_kriteria" id="kode" placeholder="masukan kode kriteria" required>
-                    </div>
-                </div>
+          
 
                 <?php
                  $idCek =mysqli_query($conn,"SELECT id_kriteria FROM kriteria ORDER BY RIGHT(id_kriteria, 2)   DESC LIMIT 1 ");

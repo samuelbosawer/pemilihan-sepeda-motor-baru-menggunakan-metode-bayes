@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once('conn.php');
-
-$datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY RAND()");
+$id = $_GET['motor'];
+$datas = mysqli_query($conn,"SELECT * FROM motor WHERE jenis_motor = '$id' ORDER BY RAND()");
 
 ?>
 <!DOCTYPE html>
@@ -64,8 +64,8 @@ $datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY RAND()");
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#" class="">Beranda</a></li>
-          <li><a href="#tentang" class="">Tentang Kami</a></li>
+          <li><a href="index" class="">Beranda</a></li>
+          <li><a href="index#tentang" class="">Tentang Kami</a></li>
           <li class="dropdown "><a href="#"><span>Motor</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="motor.php?motor=honda">Honda</a></li>
@@ -119,61 +119,28 @@ $datas = mysqli_query($conn,"SELECT * FROM motor ORDER BY RAND()");
   <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
       <div class="row gy-4 d-flex justify-content-between">
-        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h2 data-aos="fade-up">Sistem Pendukung Keputusan </h2>
-          <h3 data-aos="fade-up" data-aos-delay="100"> Pemilihan Sepeda Motor Baru Menggunakan Metode Bayes</h3>
-          <a href="pencarian.php" data-aos="fade-up" data-aos-delay="200" class="btn btn-primary p-3 btn-lg fw-bolder">Mulai Pencarian <i class="bi bi-search"></i> </a>
+        <div class="col-lg-12 text-center p-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h2 data-aos="fade-up">Motor <?=$id?> </h2>
         </div>
-        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-          <img src="assets/img/hero-img.svg" class="img-fluid mb-3 mb-lg-0" alt="">
-        </div>
+        
       </div>
     </div>
   </section><!-- End Hero Section -->
 
   <main id="main">
 
-    <!-- ======= About Us Section ======= -->
-    <div class="mt-5 pb-5" id="tentang"></div>
-    <section class="about pt-5 mt-5 mb-5">
-      <div class="container" data-aos="fade-up p-5">
-
-        <div class="row gy-4">
-          <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-            <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a> -->
-          </div>
-          <div class="col-lg-6 content order-last  order-lg-first">
-            <h3 class="">TENTANG KAMI</h3>
-            <p class="" style="text-align: justify;">
-                Seiring perkembangan teknologi di bidang informatika kami turut membantu dalam pengembangan sistem pendukung keputusan untuk pemilihan sepeda motor Honda, Yamaha, dan Kawasaki untuk memudahkan costumer dalam menetukan pilihan sesuai dengan kriteria yang diinginkan oleh costumer, serta dapat memesan motor yang sesuai dengan kriteria yang dibutuhkan tanpa harus datang langsung kedealer.
-            </p>
-            <ul>
-              <li data-aos="fade-up" data-aos-delay="100">
-                 <i class="bi bi-search"></i>
-                <div>
-                  <h5>Metode Bayes</h5>
-                  <p>Untuk membantu pencarian yang sesuai dengan kriteria kami menggunakan metode bayes</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Us Section -->
-
+   
   
     <div class="mt-5 pb-5" id="produk"></div>
     <!-- ======= Call To Action Section ======= -->
-    <section id="call-to-action" class="call-to-action" style="color:white">
+    <section id="about" class="about" style="color:black">
     <div class="container" data-aos="fade-up">
 
     <div class="section-header">
-      <h1 class="text-white ">PRODUK</h1>
+      <h1 class="text-black ">PRODUK</h1>
     </div>
 
-    <div class="row gy-4 text-white">
+    <div class="row gy-4 text-black">
     <?php foreach($datas as $data):?>
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
         <div class="card">

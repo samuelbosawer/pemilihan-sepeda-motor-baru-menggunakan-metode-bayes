@@ -38,7 +38,6 @@
                 <tr class="bg-dark text-white ">
                   <th scope="col">#</th>
                   <th scope="col">Nama Kriteria</th>
-                  <th scope="col">Kode Kriteria</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -47,7 +46,6 @@
                 <tr>
                   <th scope="row"><?= ++$i?></th>
                   <td><?= $data['nama_kriteria']?></td>
-                  <td><?= $data['kode_kriteria']?></td>
                   <td>
                     <a href="kriteria-edit?id=<?= $data['id_kriteria']?>" class="btn btn-success m-2"><i class="bi bi-pencil-fill"></i></a>
                     <a href="kriteria-delete?id=<?= $data['id_kriteria']?>" class="btn btn-danger m-2"><i class="bi bi-trash-fill" onclick= "return confirm ('Anda yakin ingin hapus data ini ?')"></i></a>

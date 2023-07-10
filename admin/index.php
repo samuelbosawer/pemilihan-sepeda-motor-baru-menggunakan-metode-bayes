@@ -69,7 +69,7 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Pendaftaran </h5>
+                  <h5 class="card-title">Customer </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -85,6 +85,28 @@
 
               </div>
             </div><!-- End Sales Card -->
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">Dealer </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi bi-journal-text"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6> <?= $pendaftaran->num_rows?> </h6>
+                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
 
 
              <!-- Sales Card -->
@@ -154,7 +176,7 @@
             </div>
 
  
-
+        </div>
   <?php
    include('includes/footer.php');
 ?>
